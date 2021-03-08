@@ -1,7 +1,7 @@
 from googleParser import GoogleImageParser
 
 gip = GoogleImageParser()
-urls = gip.get_images("good morning",6)
+urls = gip.get_images("blue sky",20)
 
 
 

@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 from time import sleep 
@@ -11,7 +11,7 @@ class GoogleImageParser:
     # Initializate webdriver
     def __init__(self):
         option = Options()
-        # option.add_argument("--headless")
+        option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
     # Create url for google search 
@@ -25,7 +25,7 @@ class GoogleImageParser:
     # Get image url via alt attribute
     def __get_image_url(self,url,alt_val):
         self.driver.get(url)
-        sleep(0.5) # Time for google to load image and via this driver can sync and get valid html source
+        sleep(0.3) # Time for google to load image and via this driver can sync and get valid html source
         # Parse image
         html = self.driver.page_source
         soup = BeautifulSoup(html,"html.parser")
@@ -45,13 +45,13 @@ class GoogleImageParser:
     # Find all images elements
     def __find_all_imgs(self,url):
         self.driver.get(url)
-        imgs = self.driver.find_elements_by_tag_name("img")
+        imgs = self.driver.find_elements_by_css_selector("div.mJxzWe img")
         return imgs
 
     def get_images(self,request_value,amount = 1,resolution = ""):
         url = self.__create_search_link(request_value,resolution)
         imgs_url = []
-        for i in range(1,amount+1):
+        for i in range(0,amount):
             imgs = self.__find_all_imgs(url)
             img = imgs[i]
             alt_val = self.__get_alt_value(img)
