@@ -11,7 +11,7 @@ class GoogleImageParser:
     # Initializate webdriver
     def __init__(self):
         option = Options()
-        option.add_argument("--headless")
+        # option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
     # Create url for google search 
@@ -25,7 +25,7 @@ class GoogleImageParser:
     # Get image url via alt attribute
     def __get_image_url(self,url,alt_val):
         self.driver.get(url)
-        sleep(0.3) # Time for google to load image and via this driver can sync and get valid html source
+        sleep(0.5) # Time for google to load image and via this driver can sync and get valid html source
         # Parse image
         html = self.driver.page_source
         soup = BeautifulSoup(html,"html.parser")
@@ -51,7 +51,7 @@ class GoogleImageParser:
     def get_images(self,request_value,amount = 1,resolution = ""):
         url = self.__create_search_link(request_value,resolution)
         imgs_url = []
-        for i in range(amount):
+        for i in range(1,amount+1):
             imgs = self.__find_all_imgs(url)
             img = imgs[i]
             alt_val = self.__get_alt_value(img)
@@ -60,9 +60,6 @@ class GoogleImageParser:
             imgs_url.append(img_url)
         return imgs_url   
     
-
-    
-
 
     # Finish driver work
     def close(self):

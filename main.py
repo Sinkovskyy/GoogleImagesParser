@@ -1,5 +1,8 @@
 from googleParser import GoogleImageParser
 
 gip = GoogleImageParser()
-print(gip.get_images("c",3))
+urls = gip.get_images("good morning",6)
+
+
+
 
