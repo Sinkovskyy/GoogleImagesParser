@@ -1,6 +1,5 @@
-
 from googleParser import GoogleImageParser
 
-parser = GoogleImageParser()
-print(parser.parse("hello wrold",6))
+gip = GoogleImageParser()
+print(gip.get_images("c",3))
 
