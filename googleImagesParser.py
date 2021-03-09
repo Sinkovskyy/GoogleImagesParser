@@ -15,7 +15,7 @@ import base64
 class GoogleImagesParser:
 
     # Limit for downloading image in seconds
-    timeLimit = 10
+    timeLimit = 5
     delay = 0.1
 
     # Initializate webdriver
@@ -52,17 +52,17 @@ class GoogleImagesParser:
         # Parse image
         html = self.driver.page_source
         soup = BeautifulSoup(html,"html.parser")
-        imgs = soup.findAll(attrs={"alt":alt_val})
-        img = imgs[-1]["src"]
+        imgs = soup.findAll(attrs={"class":"n3VNCb","alt":alt_val})
+        img = imgs[0]["src"]
         time = 0
         while (self.__is_base64_encoded(img) and time < self.timeLimit): 
             time += self.delay
             sleep(self.delay)
             html = self.driver.page_source
             soup = BeautifulSoup(html,"html.parser")
-            imgs = soup.findAll(attrs={"alt":alt_val})
-            img = imgs[-1]["src"]
-        return imgs[-1]["src"]
+            imgs = soup.findAll(attrs={"class":"n3VNCb","alt":alt_val})
+            img = imgs[0]["src"]      
+        return img
 
     # Simulate click on image and get a new url
     def __click(self,img):
