@@ -7,6 +7,9 @@ import requests
 from PIL import Image
 from os.path import isfile
 import random
+import pathlib
+import base64
+
 
 
 class GoogleImagesParser:
@@ -14,14 +17,14 @@ class GoogleImagesParser:
     # Initializate webdriver
     def __init__(self):
         option = Options()
-        option.add_argument("--headless")
+        # option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
     # Create url for google search 
     def __create_search_link(self,request_value,resolution):
         search = "+".join(request_value.split())
         if resolution:
-            search = resolution + "+" + search
+            search += "+imagesize%3A" + resolution
         url = "https://www.google.com/search?q="+ search +"&tbm=isch"
         return url
 
@@ -65,27 +68,24 @@ class GoogleImagesParser:
             imgs_url.append(img_url)
         return imgs_url 
 
-    # Compare raw image's resolution between user-defined resolution
-    def __is_img_resolution_correct(self,img,resolution):
-        if resolution == "":
-            return True
+    def __decode_base64(self,url):
+        if url.find("data:image/jpeg;base64") != -1:
+            url = url[url.find("/9"):]
+            return base64.b64decode(url)
         else:
-            c_width,c_height = resolution.split("x")
-            width,height = Image.open(img).size
-            if c_width == width and c_height == height:
-                return True
-            else:
-                return False
+            return url
+            
 
 
-    def download_image(self,img,request_value):
+    def __download_image(self,img,request_value):
         req_words = request_value.split()
         dir = "_".join(req_words[:5] if len(req_words) > 5 else req_words)
         dir = "images/" + dir + "/"
+        pathlib.Path(dir).mkdir(parents=True,exist_ok=True)
         r = int(random.uniform(10000000000,999999999999))
-        while isfile(dir + r + ".png"):
+        while isfile(dir + str(r) + ".png"):
             r = int(random.uniform(10000000000,999999999999))
-        f = open(dir + r + ".png","wj")
+        f = open(dir + str(r) + ".png","wb")
         f.write(img)
         f.close()
         
@@ -93,13 +93,11 @@ class GoogleImagesParser:
 
     def download_images(self,request_value,amount=1,resolution = ""):
         imgs_url = self.get_images_url(request_value,amount,resolution)
-        invalid_imgs = 0
         for url in imgs_url:
-            file = io.StringIO(requests.get(url).raw)
-            if self.__is_img_resolution_correct(file,resolution):
-                pass
-            else:
-                invalid_imgs += 1
+            url = self.__decode_base64(url)
+            file = requests.get(url).content
+            self.__download_image(file,request_value)
+            
 
 
     # Finish driver work
