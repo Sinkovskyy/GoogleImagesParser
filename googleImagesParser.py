@@ -68,13 +68,17 @@ class GoogleImagesParser:
             imgs_url.append(img_url)
         return imgs_url 
 
-    def __decode_base64(self,url):
+    # Check if url is base64 encoded
+    def __is_base64_encoded(self,url):
         if url.find("data:image/jpeg;base64") != -1:
-            url = url[url.find("/9"):]
-            return base64.b64decode(url)
+            return True
         else:
-            return url
-            
+            return False
+
+    def __decode_base64(self,url):
+        url = url[url.find("/9"):]
+        return base64.b64decode(url)
+        
 
 
     def __download_image(self,img,request_value):
@@ -94,8 +98,10 @@ class GoogleImagesParser:
     def download_images(self,request_value,amount=1,resolution = ""):
         imgs_url = self.get_images_url(request_value,amount,resolution)
         for url in imgs_url:
-            url = self.__decode_base64(url)
-            file = requests.get(url).content
+            if self.__is_base64_encoded(url):
+                file = self.__decode_base64(url)
+            else:
+                file = requests.get(url).content
             self.__download_image(file,request_value)
             
 
