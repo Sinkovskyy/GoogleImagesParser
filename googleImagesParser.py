@@ -17,7 +17,7 @@ class GoogleImagesParser:
     # Initializate webdriver
     def __init__(self):
         option = Options()
-        # option.add_argument("--headless")
+        option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
     # Create url for google search 
@@ -31,7 +31,7 @@ class GoogleImagesParser:
     # Get image url via alt attribute
     def __get_image_url(self,url,alt_val):
         self.driver.get(url)
-        sleep(0.3) # Time for google to load image and via this driver can sync and get valid html source
+        sleep(0.5) # Time for google to load image and via this driver can sync and get valid html source
         # Parse image
         html = self.driver.page_source
         soup = BeautifulSoup(html,"html.parser")
@@ -52,7 +52,7 @@ class GoogleImagesParser:
     def __find_all_imgs(self,url):
         self.driver.get(url)
         # div.mJxzWe its a div that contain all images
-        imgs = self.driver.find_elements_by_css_selector("div.mJxzWe img")
+        imgs = self.driver.find_elements_by_css_selector("div.mJxzWe img.Q4LuWd")
         return imgs
 
     # Find images url by request
@@ -75,20 +75,24 @@ class GoogleImagesParser:
         else:
             return False
 
+    # Decode base64 image 
     def __decode_base64(self,url):
         url = url[url.find("/9"):]
         return base64.b64decode(url)
         
 
-
+    # Download single image
     def __download_image(self,img,request_value):
+        # create path for image
         req_words = request_value.split()
         dir = "_".join(req_words[:5] if len(req_words) > 5 else req_words)
         dir = "images/" + dir + "/"
         pathlib.Path(dir).mkdir(parents=True,exist_ok=True)
+        # create file name for image and ckeck if such a file exist
         r = int(random.uniform(10000000000,999999999999))
         while isfile(dir + str(r) + ".png"):
             r = int(random.uniform(10000000000,999999999999))
+        # download image
         f = open(dir + str(r) + ".png","wb")
         f.write(img)
         f.close()
@@ -101,7 +105,10 @@ class GoogleImagesParser:
             if self.__is_base64_encoded(url):
                 file = self.__decode_base64(url)
             else:
-                file = requests.get(url).content
+                try:
+                    file = requests.get(url).content
+                except Exception:
+                    continue
             self.__download_image(file,request_value)
             
 

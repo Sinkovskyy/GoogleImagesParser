@@ -1409,3 +1409,73 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
 1615281837861	Marionette	INFO	Listening on port 60386
 1615281838267	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282309256	geckodriver	INFO	Listening on 127.0.0.1:60591
+1615282312317	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileDOfl7V"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282314440	Marionette	INFO	Listening on port 60599
+1615282314486	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282359008	geckodriver	INFO	Listening on 127.0.0.1:60708
+1615282362035	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileQUtdVA"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282364101	Marionette	INFO	Listening on port 60716
+1615282364194	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282367028	Marionette	INFO	Stopped listening on port 60716
+1615282378559	geckodriver	INFO	Listening on 127.0.0.1:60774
+1615282381619	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileiVKVaF"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282382922	Marionette	INFO	Listening on port 60783
+1615282383166	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: uncaught exception: Object
+1615282450286	geckodriver	INFO	Listening on 127.0.0.1:60889
+1615282453381	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileea1tOl"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282475328	geckodriver	INFO	Listening on 127.0.0.1:60934
+1615282478380	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileLazADg"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282479765	Marionette	INFO	Listening on port 60942
+1615282479915	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: uncaught exception: Object
+1615282727556	geckodriver	INFO	Listening on 127.0.0.1:61080
+1615282730604	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofilesa5Pgk"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282732710	Marionette	INFO	Listening on port 61092
+1615282732789	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282865709	geckodriver	INFO	Listening on 127.0.0.1:61249
+1615282868772	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileHTAOLH"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282870729	Marionette	INFO	Listening on port 61258
+1615282870824	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282949754	geckodriver	INFO	Listening on 127.0.0.1:61469
+1615282952837	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileIYMHsH"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615282955086	Marionette	INFO	Listening on port 61479
+1615282955515	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615282962183	Marionette	INFO	Stopped listening on port 61479
+1615283026559	geckodriver	INFO	Listening on 127.0.0.1:61582
+1615283029636	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileVTnJmr"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615283031761	Marionette	INFO	Listening on port 61595
+1615283031836	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615283267675	geckodriver	INFO	Listening on 127.0.0.1:61875
+1615283270741	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileslXB4t"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615283272925	Marionette	INFO	Listening on port 61885
+1615283273422	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615283589207	geckodriver	INFO	Listening on 127.0.0.1:62224
+1615283592273	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileb6nrRA"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615283594377	Marionette	INFO	Listening on port 62234
+1615283594434	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615283597679	Marionette	INFO	Stopped listening on port 62234
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615283603727	geckodriver	INFO	Listening on 127.0.0.1:62301
+1615283606803	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Viktor\\AppData\\Local\\Temp\\rust_mozprofileWyLVfZ"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615283608046	Marionette	INFO	Listening on port 62311
+1615283608351	Marionette	WARN	TLS certificate errors will be ignored for this session
