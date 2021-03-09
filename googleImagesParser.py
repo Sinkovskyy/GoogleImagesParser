@@ -14,11 +14,28 @@ import base64
 
 class GoogleImagesParser:
 
+    # Limit for downloading image in seconds
+    timeLimit = 10
+    delay = 0.1
+
     # Initializate webdriver
     def __init__(self):
         option = Options()
-        option.add_argument("--headless")
+        # option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
+
+
+      # Check if url is base64 encoded
+    def __is_base64_encoded(self,url):
+        if url.find("data:image/jpeg;base64") != -1:
+            return True
+        else:
+            return False
+
+    # Decode base64 image 
+    def __decode_base64(self,url):
+        url = url[url.find("/9"):]
+        return base64.b64decode(url)
 
     # Create url for google search 
     def __create_search_link(self,request_value,resolution):
@@ -31,11 +48,20 @@ class GoogleImagesParser:
     # Get image url via alt attribute
     def __get_image_url(self,url,alt_val):
         self.driver.get(url)
-        sleep(0.5) # Time for google to load image and via this driver can sync and get valid html source
+        sleep(0.3) # Time for google to load image and via this driver can sync and get valid html source
         # Parse image
         html = self.driver.page_source
         soup = BeautifulSoup(html,"html.parser")
         imgs = soup.findAll(attrs={"alt":alt_val})
+        img = imgs[-1]["src"]
+        time = 0
+        while (self.__is_base64_encoded(img) and time < self.timeLimit): 
+            time += self.delay
+            sleep(self.delay)
+            html = self.driver.page_source
+            soup = BeautifulSoup(html,"html.parser")
+            imgs = soup.findAll(attrs={"alt":alt_val})
+            img = imgs[-1]["src"]
         return imgs[-1]["src"]
 
     # Simulate click on image and get a new url
@@ -68,17 +94,7 @@ class GoogleImagesParser:
             imgs_url.append(img_url)
         return imgs_url 
 
-    # Check if url is base64 encoded
-    def __is_base64_encoded(self,url):
-        if url.find("data:image/jpeg;base64") != -1:
-            return True
-        else:
-            return False
-
-    # Decode base64 image 
-    def __decode_base64(self,url):
-        url = url[url.find("/9"):]
-        return base64.b64decode(url)
+  
         
 
     # Download single image
