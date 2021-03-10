@@ -104,11 +104,11 @@ class GoogleImagesParser:
             alt_val = self.__get_alt_value(img)
             url = self.__click(img)
             img_url = self.__get_image_url(url,alt_val)
+            i += 1
             if ignore_bad_quality_img and (self.__is_base64_encoded(img_url) or self.__is_encrypted(img_url)):
                 amount += 1
                 continue
             imgs_url.append(img_url)
-            i += 1
         return imgs_url 
 
   
