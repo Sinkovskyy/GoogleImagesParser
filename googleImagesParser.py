@@ -26,7 +26,6 @@ class GoogleImagesParser:
             option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
-
       # Check if url is base64 encoded
     def __is_base64_encoded(self,url):
         if url.find("data:image/jpeg;base64") != -1:
@@ -71,9 +70,7 @@ class GoogleImagesParser:
             html = self.driver.page_source
             soup = BeautifulSoup(html,"html.parser")
             imgs = soup.findAll(attrs={"class":"n3VNCb","alt":alt_val})
-            img = imgs[0]["src"]      
-        if not self.__is_base64_encoded(img):
-            print(img)
+            img = imgs[0]["src"]     
         return img
 
     # Simulate click on image and get a new url
@@ -143,11 +140,5 @@ class GoogleImagesParser:
                 except Exception:
                     continue
             self.__download_image(file,request_value)
-            
-
-
-    # Finish driver work
-    def close(self):
-        self.driver.close()
 
 
