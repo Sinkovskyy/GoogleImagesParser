@@ -97,6 +97,10 @@ class GoogleImagesParser:
         i = 0
         while i < amount:
             imgs = self.__find_all_imgs(url)
+            # If there is no images
+            if i == len(imgs):
+                print("Thats all images finded by this request")
+                break 
             img = imgs[i]
             alt_val = self.__get_alt_value(img)
             url = self.__click(img)
@@ -126,9 +130,10 @@ class GoogleImagesParser:
         f = open(dir + str(r) + ".png","wb")
         f.write(img)
         f.close()
-        
+    
 
 
+    # Download images
     def download_images(self,request_value,amount=1,resolution = {0,0},ignore_bad_quality_img = False):
         imgs_url = self.get_images_url(request_value,amount,resolution,ignore_bad_quality_img)
         for url in imgs_url:
