@@ -15,13 +15,15 @@ import base64
 class GoogleImagesParser:
 
     # Limit for downloading image in seconds
-    timeLimit = 5
-    delay = 0.1
+    __timeLimit = 0
+    __DELAY = 0.2
 
     # Initializate webdriver
-    def __init__(self):
+    def __init__(self,timeLimit = 3,headless = True):
         option = Options()
-        # option.add_argument("--headless")
+        self.__timeLimit = timeLimit
+        if headless:
+            option.add_argument("--headless")
         self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
 
 
@@ -31,6 +33,13 @@ class GoogleImagesParser:
             return True
         else:
             return False
+    
+    def __is_encrypted(self,url):
+        if not url.find("https://encrypted"):
+            return True
+        else:
+            return False
+
 
     # Decode base64 image 
     def __decode_base64(self,url):
@@ -40,8 +49,8 @@ class GoogleImagesParser:
     # Create url for google search 
     def __create_search_link(self,request_value,resolution):
         search = "+".join(request_value.split())
-        if resolution:
-            search += "+imagesize%3A" + resolution
+        if 0 not in resolution:
+            search += "+imagesize%3A" + "x".join([str(i) for i in resolution])
         url = "https://www.google.com/search?q="+ search +"&tbm=isch"
         return url
 
@@ -54,14 +63,17 @@ class GoogleImagesParser:
         soup = BeautifulSoup(html,"html.parser")
         imgs = soup.findAll(attrs={"class":"n3VNCb","alt":alt_val})
         img = imgs[0]["src"]
+        # Waiting while google download image 
         time = 0
-        while (self.__is_base64_encoded(img) and time < self.timeLimit): 
-            time += self.delay
-            sleep(self.delay)
+        while (self.__is_base64_encoded(img) or self.__is_encrypted(img)) and time < self.__timeLimit: 
+            time += self.__DELAY
+            sleep(self.__DELAY)
             html = self.driver.page_source
             soup = BeautifulSoup(html,"html.parser")
             imgs = soup.findAll(attrs={"class":"n3VNCb","alt":alt_val})
             img = imgs[0]["src"]      
+        if not self.__is_base64_encoded(img):
+            print(img)
         return img
 
     # Simulate click on image and get a new url
@@ -82,16 +94,21 @@ class GoogleImagesParser:
         return imgs
 
     # Find images url by request
-    def get_images_url(self,request_value,amount = 1,resolution = ""):
+    def get_images_url(self,request_value,amount = 1,resolution = {0,0},ignore_bad_quality_img = False):
         url = self.__create_search_link(request_value,resolution)
         imgs_url = []
-        for i in range(0,amount):
+        i = 0
+        while i < amount:
             imgs = self.__find_all_imgs(url)
             img = imgs[i]
             alt_val = self.__get_alt_value(img)
             url = self.__click(img)
             img_url = self.__get_image_url(url,alt_val)
+            if ignore_bad_quality_img and (self.__is_base64_encoded(img_url) or self.__is_encrypted(img_url)):
+                amount += 1
+                continue
             imgs_url.append(img_url)
+            i += 1
         return imgs_url 
 
   
@@ -115,8 +132,8 @@ class GoogleImagesParser:
         
 
 
-    def download_images(self,request_value,amount=1,resolution = ""):
-        imgs_url = self.get_images_url(request_value,amount,resolution)
+    def download_images(self,request_value,amount=1,resolution = {0,0},ignore_bad_quality_img = False):
+        imgs_url = self.get_images_url(request_value,amount,resolution,ignore_bad_quality_img)
         for url in imgs_url:
             if self.__is_base64_encoded(url):
                 file = self.__decode_base64(url)

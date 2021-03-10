@@ -1,7 +1,7 @@
 from googleImagesParser import GoogleImagesParser
 
 
-gip = GoogleImagesParser()
-gip.download_images("ocean whales wallpaper",50,"1920x1080")
+gip = GoogleImagesParser(headless = False,timeLimit=1.5)
+gip.download_images("son wallpaper",50,{3840,2160},ignore_bad_quality_img=True)
 
 
