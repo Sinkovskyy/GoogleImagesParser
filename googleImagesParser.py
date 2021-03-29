@@ -5,10 +5,12 @@ from time import sleep
 import io
 import requests
 from PIL import Image
+import os
 from os.path import isfile
 import random
 import pathlib
 import base64
+import platform
 
 
 
@@ -24,7 +26,10 @@ class GoogleImagesParser:
         self.__timeLimit = timeLimit
         if headless:
             option.add_argument("--headless")
-        self.driver = webdriver.Firefox(executable_path="geckodriver.exe",options=option)
+        if platform.system() == "Linux":
+            self.driver = webdriver.Firefox(executable_path=os.path.abspath("geckodriver"),options=option)
+        else:
+            self.driver = webdriver.Firefox(executable_path=os.path.abspath("geckodriver.exe"),options=option)
 
       # Check if url is base64 encoded
     def __is_base64_encoded(self,url):
@@ -146,4 +151,6 @@ class GoogleImagesParser:
                     continue
             self.__download_image(file,request_value)
 
+    def close(self):
+        self.driver.close()
 
