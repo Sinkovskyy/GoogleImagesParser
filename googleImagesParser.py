@@ -91,8 +91,8 @@ class GoogleImagesParser:
     # Find all images elements
     def __find_all_imgs(self,url):
         self.driver.get(url)
-        # div.mJxzWe its a div that contain all images
-        imgs = self.driver.find_elements_by_css_selector("div.mJxzWe img.Q4LuWd")
+        # div.islrc its a div that contain all images
+        imgs = self.driver.find_elements_by_css_selector("div.islrc img.Q4LuWd")
         return imgs
 
     # Find images url by request
